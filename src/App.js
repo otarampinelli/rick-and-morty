@@ -1,7 +1,9 @@
 import React from 'react'
 
+import CharacterList from './comonents/CharacterList/CharacterList';
+
 const App = () => {
-    return <h1>Oi</h1>
+    return <CharacterList />
 }
 
 export default App;
