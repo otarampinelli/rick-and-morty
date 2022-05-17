@@ -4,17 +4,16 @@ import Axios from "axios";
 
 import CharacterCard from "../CharacterCard/CharacterCard";
 
+import './CharacterList.css'
+
 const CharacterList = () => {
   const [characters, setCharacters] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
-
-  const arr = [1, 2, 3, 4]
-
   React.useEffect(() => {
     async function fetchData() {
       let result = await Axios.get("https://rickandmortyapi.com/api/character");
-      console.log(result.data.results[0].origin.name);
+      console.log(result.data.results[0]);
       setCharacters(result.data.results);
       setIsLoading(true);
     }
@@ -23,18 +22,22 @@ const CharacterList = () => {
   }, []);
 
   return (
-    isLoading && characters.map(item => {
+    <div className="main-block">
+    {isLoading && characters.map(item => {
       return (
-        <CharacterCard
-        name={item.name}
-        image={item.image}
-        specie={item.species}
-        gender={item.gender}
-        status={item.status}
-        origin={item.origin.name}
-      />
+          <CharacterCard
+            className="characters"
+            key={item.id}
+            name={item.name}
+            image={item.image}
+            specie={item.species}
+            gender={item.gender}
+            status={item.status}
+            origin={item.origin.name}
+          />
       )
-    })
+    })}
+    </div>
   );
 };
 

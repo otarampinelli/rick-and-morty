@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CharacterList from './comonents/CharacterList/CharacterList';
+import CharacterList from './components/CharacterList/CharacterList';
 
 const App = () => {
     return <CharacterList />
