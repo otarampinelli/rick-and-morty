@@ -13,7 +13,6 @@ const CharacterList = () => {
   React.useEffect(() => {
     async function fetchData() {
       let result = await Axios.get("https://rickandmortyapi.com/api/character");
-      console.log(result.data.results[0]);
       setCharacters(result.data.results);
       setIsLoading(true);
     }
@@ -30,7 +29,6 @@ const CharacterList = () => {
             key={item.id}
             name={item.name}
             image={item.image}
-            specie={item.species}
             gender={item.gender}
             status={item.status}
             origin={item.origin.name}
