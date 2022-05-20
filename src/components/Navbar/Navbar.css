@@ -1,17 +1,16 @@
 .navbar-menu {
-    display: flex;
-    height: 50px;
-    align-items: center;
+  display: flex;
+  height: 50px;
+  align-items: center;
 }
 
 ul {
-    margin: 0;
+  margin: 0;
 }
 
 li {
-    font-size: 25px;
-    font-weight: bold;
-    list-style-type: none;
-    font-family: 'Permanent Marker', cursive;
+  font-size: 25px;
+  font-weight: bold;
+  list-style-type: none;
+  font-family: 'Permanent Marker', cursive;
 }
-

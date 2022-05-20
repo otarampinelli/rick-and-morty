@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  border: 1px solid grey;
+  border: 1px solid #a2b9d0;
   box-shadow: 8px 8px 8px -6px grey;
   max-width: 250px;
   border-radius: 12px;
-  background: linear-gradient(to bottom, #0ff0b3, #036ed9);
+  background: linear-gradient(to bottom, #a2b9d0, #708090);
   color: grey;
   margin-top: 200px;
   margin: 20px 10px 20px 10px;
