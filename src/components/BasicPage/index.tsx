@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import Nav from "../Menu";
+import Menu from "../Menu";
 import React from "react";
 import Footer from "../Footer";
 
@@ -21,7 +21,7 @@ const ChildrenContainer = styled.div`
 function BasicPage({ children }: BasicPageProps) {
   return (
     <Container>
-      <Nav />
+      <Menu />
       <ChildrenContainer>{children}</ChildrenContainer>
       <Footer />
     </Container>
