@@ -1,5 +1,7 @@
+import { API_URL } from "../contants";
+
 export async function getCharacters() {
-  const response = await fetch("https://rickandmortyapi.com/api/character");
+  const response = await fetch(API_URL);
 
   if (!response.ok) {
     throw new Error("something is wrong here!!!");
@@ -16,9 +18,7 @@ export async function getCharacterById({
   console.log(queryKey);
   const id = queryKey[1];
 
-  const response = await fetch(
-    `https://rickandmortyapi.com/api/character/${id}`
-  );
+  const response = await fetch(`${API_URL}/${id}`);
 
   if (!response.ok) {
     throw new Error("something is wrong here!!!");

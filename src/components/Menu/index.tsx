@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { API_DOCS_URL } from "../../contants";
 
 const MenuDiv = styled.nav`
     display: flex;
@@ -35,7 +36,7 @@ function Menu() {
       <Title>Rick And Morty</Title>
       <ul>
         <ListItem>
-          <MenuItemLink href="#">Docs</MenuItemLink>
+          <MenuItemLink href={API_DOCS_URL}>Docs</MenuItemLink>
         </ListItem>
       </ul>
     </MenuDiv>
