@@ -18,6 +18,10 @@ const CharacterDiv = styled.div`
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  &:hover {
+    position: relative;
+    bottom: 5px;
+  }
 `;
 
 const CharacterImage = styled.img`
@@ -34,12 +38,19 @@ const CharacterInfos = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
 `;
 
 const CardLink = styled(Link)`
   text-decoration: none;
+`;
+
+const CharacterSpan = styled.span`
+  font-weight: 600;
+`;
+
+const CharacterParagraph = styled.p`
+  margin: 10px 0;
 `;
 
 function CharacterCard({ character }: CharacterCardProps) {
@@ -50,8 +61,15 @@ function CharacterCard({ character }: CharacterCardProps) {
           <CharacterImage src={character.image} />
         </div>
         <CharacterInfos>
-          <h1>{character.name}</h1>
-          <p>{character.location.name}</p>
+          <h2>{character.name}</h2>
+          <CharacterParagraph>
+            <CharacterSpan>Status: </CharacterSpan>
+            {character.status}
+          </CharacterParagraph>
+          <CharacterParagraph>
+            <CharacterSpan>Last known location: </CharacterSpan>
+            {character.location.name}
+          </CharacterParagraph>
         </CharacterInfos>
       </CharacterDiv>
     </CardLink>
