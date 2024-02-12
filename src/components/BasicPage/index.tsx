@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import Menu from "../Menu";
 import React from "react";
 import Footer from "../Footer";

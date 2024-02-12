@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import App from "./App.tsx";s
 import HomePage from "./views/Home/index.tsx";
 import "./style.css";
 

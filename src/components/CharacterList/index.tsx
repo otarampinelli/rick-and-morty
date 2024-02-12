@@ -13,12 +13,16 @@ const CharacterListContainer = styled.div`
 `;
 
 function CharacterList({ results }: CharacterListProps) {
-  console.log(results);
   return (
     <CharacterListContainer>
       {!!results.length &&
         results.map((result) => {
-          return <CharacterCard character={result} />;
+          return (
+            <CharacterCard
+              key={`${result.name}--${result.id}`}
+              character={result}
+            />
+          );
         })}
     </CharacterListContainer>
   );

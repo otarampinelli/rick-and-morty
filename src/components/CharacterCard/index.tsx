@@ -1,17 +1,48 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { CharacterCardProps } from "./types";
 import { Link } from "react-router-dom";
 
-const CharacterDiv = styled.div`
-  background: radial-gradient(
-    circle,
-    rgba(63, 94, 251, 1) 0%,
-    rgba(252, 70, 107, 1) 100%
-  );
+const CharacterDiv = styled.div<{
+  status: string;
+}>`
+  ${(props) => {
+    if (props.status === "Alive") {
+      return css`
+        background: radial-gradient(
+          circle,
+          rgba(0, 115, 73, 1) 39%,
+          rgba(42, 233, 96, 1) 93%,
+          rgba(42, 233, 96, 1) 98%
+        );
+      `;
+    }
+
+    if (props.status === "Dead") {
+      return css`
+        background: radial-gradient(
+          circle,
+          rgba(166, 170, 191, 1) 0%,
+          rgba(166, 170, 191, 1) 14%,
+          rgba(68, 65, 66, 1) 98%
+        );
+      `;
+    }
+
+    if (props.status === "unknown") {
+      return css`
+        background: radial-gradient(
+          circle,
+          rgba(63, 94, 251, 1) 0%,
+          rgba(252, 70, 107, 1) 100%
+        );
+      `;
+    }
+  }}
   color: white;
   display: flex;
   flex-direction: column;
   width: 290px;
+  padding: 10px;
   height: 500px;
   border-radius: 18px;
   text-align: center;
@@ -56,7 +87,7 @@ const CharacterParagraph = styled.p`
 function CharacterCard({ character }: CharacterCardProps) {
   return (
     <CardLink to={`character/${character.id}`}>
-      <CharacterDiv>
+      <CharacterDiv status={character.status}>
         <div>
           <CharacterImage src={character.image} />
         </div>
