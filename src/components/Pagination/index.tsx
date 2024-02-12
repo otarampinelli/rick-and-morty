@@ -1,11 +1,89 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled, { css } from "styled-components";
 import { PaginationProps } from "./types";
 import { Fragment, useState } from "react";
 
+enum PaginationDirection {
+  Start = "START",
+  End = "END",
+}
+
+function Pagination({ count }: PaginationProps) {
+  const [pages, setPages] = useState<number[]>(() =>
+    Array.from({ length: count > 10 ? 10 : count }, (_, i) => i + 1)
+  );
+
+  const [selectedItem, setSelectedItem] = useState<number>(1);
+
+  const handleNextOrPrevPage = (page: number) => {
+    const firstItem = pages[0];
+    const lastItem = pages[pages.length - 1];
+
+    if (page === firstItem && page !== 1) {
+      setPages((prev) => {
+        return prev.map((item) => item - 1);
+      });
+    }
+
+    if (page === lastItem && page !== count) {
+      setPages((prev) => {
+        return prev.map((item) => item + 1);
+      });
+    }
+
+    setSelectedItem(page);
+  };
+
+  const setLastItems = (type: string) => {
+    const pages: number[] = [];
+    if (type === PaginationDirection.End) {
+      for (let i = count - 10; i <= count; i++) {
+        pages.push(i);
+      }
+      setSelectedItem(pages[pages.length - 1]);
+      setPages(pages);
+    }
+
+    if (type === PaginationDirection.Start) {
+      const condition = count < 10 ? count : 10;
+      for (let i = 1; i <= condition; i++) {
+        pages.push(i);
+      }
+      setSelectedItem(pages[0]);
+      setPages(pages);
+    }
+  };
+
+  return (
+    <PaginationWrapper>
+      <PaginationButton onClick={() => setLastItems(PaginationDirection.Start)}>
+        {"<<"}
+      </PaginationButton>
+      {!!pages.length &&
+        pages.map((page, index) => {
+          return (
+            <Fragment key={index}>
+              <PaginationButton
+                selected={page === selectedItem}
+                onClick={() => handleNextOrPrevPage(page)}
+              >
+                {page}
+              </PaginationButton>
+            </Fragment>
+          );
+        })}
+      <PaginationButton onClick={() => setLastItems(PaginationDirection.End)}>
+        {">>"}
+      </PaginationButton>
+    </PaginationWrapper>
+  );
+}
+
+export default Pagination;
+
 const PaginationWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 4px;
   justify-content: center;
   margin-bottom: 20px;
@@ -34,76 +112,3 @@ const PaginationButton = styled.button<{
     }
   }}
 `;
-
-function Pagination({ count }: PaginationProps) {
-  const [initialValue, setInitialValue] = useState<number[]>(() =>
-    Array.from({ length: count > 10 ? 10 : count }, (_, i) => i + 1)
-  );
-
-  const [selectedItem, setSelectedItem] = useState<number>(1);
-
-  const handleNextOrPrevPage = (page: number) => {
-    const firstItem = initialValue[0];
-    const lastItem = initialValue[initialValue.length - 1];
-
-    if (page === firstItem && page !== 1) {
-      setInitialValue((prev) => {
-        return prev.map((item) => item - 1);
-      });
-    }
-
-    if (page === lastItem && page !== count) {
-      setInitialValue((prev) => {
-        return prev.map((item) => item + 1);
-      });
-    }
-
-    setSelectedItem(page);
-  };
-
-  const setLastItems = (type: string) => {
-    const pages: number[] = [];
-    if (type === "last") {
-      for (let i = count - 10; i <= count; i++) {
-        pages.push(i);
-      }
-      setSelectedItem(pages[pages.length - 1]);
-      setInitialValue(pages);
-    }
-
-    if (type === "first") {
-      const condition = count < 10 ? count : 10;
-      for (let i = 1; i <= condition; i++) {
-        pages.push(i);
-      }
-      setSelectedItem(pages[0]);
-      setInitialValue(pages);
-    }
-  };
-
-  return (
-    <PaginationWrapper>
-      <PaginationButton onClick={() => setLastItems("first")}>
-        {"<<"}
-      </PaginationButton>
-      {!!initialValue.length &&
-        initialValue.map((page, index) => {
-          return (
-            <Fragment key={index}>
-              <PaginationButton
-                selected={page === selectedItem}
-                onClick={() => handleNextOrPrevPage(page)}
-              >
-                {page}
-              </PaginationButton>
-            </Fragment>
-          );
-        })}
-      <PaginationButton onClick={() => setLastItems("last")}>
-        {">>"}
-      </PaginationButton>
-    </PaginationWrapper>
-  );
-}
-
-export default Pagination;

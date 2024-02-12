@@ -2,6 +2,32 @@ import styled, { css } from "styled-components";
 import { CharacterCardProps } from "./types";
 import { Link } from "react-router-dom";
 
+
+function CharacterCard({ character }: CharacterCardProps) {
+  return (
+    <CardLink to={`character/${character.id}`}>
+      <CharacterDiv status={character.status}>
+        <div>
+          <CharacterImage src={character.image} />
+        </div>
+        <CharacterInfos>
+          <h2>{character.name}</h2>
+          <CharacterParagraph>
+            <CharacterSpan>Status: </CharacterSpan>
+            {character.status}
+          </CharacterParagraph>
+          <CharacterParagraph>
+            <CharacterSpan>Last known location: </CharacterSpan>
+            {character.location.name}
+          </CharacterParagraph>
+        </CharacterInfos>
+      </CharacterDiv>
+    </CardLink>
+  );
+}
+
+export default CharacterCard;
+
 const CharacterDiv = styled.div<{
   status: string;
 }>`
@@ -83,28 +109,3 @@ const CharacterSpan = styled.span`
 const CharacterParagraph = styled.p`
   margin: 10px 0;
 `;
-
-function CharacterCard({ character }: CharacterCardProps) {
-  return (
-    <CardLink to={`character/${character.id}`}>
-      <CharacterDiv status={character.status}>
-        <div>
-          <CharacterImage src={character.image} />
-        </div>
-        <CharacterInfos>
-          <h2>{character.name}</h2>
-          <CharacterParagraph>
-            <CharacterSpan>Status: </CharacterSpan>
-            {character.status}
-          </CharacterParagraph>
-          <CharacterParagraph>
-            <CharacterSpan>Last known location: </CharacterSpan>
-            {character.location.name}
-          </CharacterParagraph>
-        </CharacterInfos>
-      </CharacterDiv>
-    </CardLink>
-  );
-}
-
-export default CharacterCard;

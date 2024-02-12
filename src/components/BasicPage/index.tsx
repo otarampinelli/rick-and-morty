@@ -1,22 +1,9 @@
 import styled from "styled-components";
 import Menu from "../Menu";
-import React from "react";
 import Footer from "../Footer";
+import { BasicPageProps } from "./types";
 
-interface BasicPageProps {
-  children?: React.ReactElement;
-}
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: rgb(39, 43, 51);
-`;
-
-const ChildrenContainer = styled.div`
-  flex: 1;
-`;
 
 function BasicPage({ children }: BasicPageProps) {
   return (
@@ -29,3 +16,15 @@ function BasicPage({ children }: BasicPageProps) {
 }
 
 export default BasicPage;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: rgb(39, 43, 51);
+`;
+
+const ChildrenContainer = styled.div`
+  flex: 1;
+`;
+
