@@ -8,68 +8,63 @@ enum PaginationDirection {
 }
 
 function Pagination({ count, selectedPage, onClick }: PaginationProps) {
-  const [pages, setPages] = useState<number[]>(
-    Array.from({ length: count > 10 ? 10 : count }, (_, i) => i + 1)
-  );
+  const [currentPage, setCurrentPage] = useState(() => selectedPage);
 
-  const handleNextOrPrevPage = (page: number) => {
-    const firstItem = pages[0];
-    const lastItem = pages[pages.length - 1];
+  const renderPagination = () => {
+    const paginationItems = [];
+    const startPage = Math.max(1, currentPage - 4);
+    const endPage = Math.min(count, startPage + 9);
 
-    if (page === firstItem && page !== 1) {
-      setPages((prev) => {
-        return prev.map((item) => item - 1);
-      });
+    for (let page = startPage; page <= endPage; page++) {
+      paginationItems.push(
+        <Fragment key={page}>
+          <PaginationButton
+            selected={page === currentPage}
+            onClick={() => handlePageChange(page)}
+          >
+            {page}
+          </PaginationButton>
+        </Fragment>
+      );
     }
 
-    if (page === lastItem && page !== count) {
-      setPages((prev) => {
-        return prev.map((item) => item + 1);
-      });
-    }
+    return paginationItems;
+  };
 
+  const handlePageChange = (page: number) => {
+    if (page === 1 && currentPage !== 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    } else if (page === count && currentPage !== count) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    } else {
+      setCurrentPage(page);
+    }
     onClick(page);
   };
 
-  const setLastItems = (type: string) => {
-    const pages: number[] = [];
+  const setFirstOrLastItems = (type: string) => {
     if (type === PaginationDirection.End) {
-      for (let i = count - 10; i <= count; i++) {
-        pages.push(i);
-      }
-      setPages(pages);
-      onClick(pages[pages.length - 1]);
+      setCurrentPage(count);
+      onClick(count);
     }
 
     if (type === PaginationDirection.Start) {
-      const condition = count < 10 ? count : 10;
-      for (let i = 1; i <= condition; i++) {
-        pages.push(i);
-      }
-      setPages(pages);
-      onClick(pages[0]);
+      setCurrentPage(1);
+      onClick(1);
     }
   };
 
   return (
     <PaginationWrapper>
-      <PaginationButton onClick={() => setLastItems(PaginationDirection.Start)}>
+      <PaginationButton
+        onClick={() => setFirstOrLastItems(PaginationDirection.Start)}
+      >
         {"<<"}
       </PaginationButton>
-      {!!pages.length &&
-        pages.map((page, index) => {
-          return (
-            <Fragment key={index}>
-              <PaginationButton
-                selected={page === selectedPage}
-                onClick={() => handleNextOrPrevPage(page)}
-              >
-                {page}
-              </PaginationButton>
-            </Fragment>
-          );
-        })}
-      <PaginationButton onClick={() => setLastItems(PaginationDirection.End)}>
+      {renderPagination()}
+      <PaginationButton
+        onClick={() => setFirstOrLastItems(PaginationDirection.End)}
+      >
         {">>"}
       </PaginationButton>
     </PaginationWrapper>
