@@ -7,12 +7,10 @@ enum PaginationDirection {
   End = "END",
 }
 
-function Pagination({ count }: PaginationProps) {
-  const [pages, setPages] = useState<number[]>(() =>
+function Pagination({ count, selectedPage, onClick }: PaginationProps) {
+  const [pages, setPages] = useState<number[]>(
     Array.from({ length: count > 10 ? 10 : count }, (_, i) => i + 1)
   );
-
-  const [selectedItem, setSelectedItem] = useState<number>(1);
 
   const handleNextOrPrevPage = (page: number) => {
     const firstItem = pages[0];
@@ -30,7 +28,7 @@ function Pagination({ count }: PaginationProps) {
       });
     }
 
-    setSelectedItem(page);
+    onClick(page);
   };
 
   const setLastItems = (type: string) => {
@@ -39,8 +37,8 @@ function Pagination({ count }: PaginationProps) {
       for (let i = count - 10; i <= count; i++) {
         pages.push(i);
       }
-      setSelectedItem(pages[pages.length - 1]);
       setPages(pages);
+      onClick(pages[pages.length - 1]);
     }
 
     if (type === PaginationDirection.Start) {
@@ -48,8 +46,8 @@ function Pagination({ count }: PaginationProps) {
       for (let i = 1; i <= condition; i++) {
         pages.push(i);
       }
-      setSelectedItem(pages[0]);
       setPages(pages);
+      onClick(pages[0]);
     }
   };
 
@@ -63,7 +61,7 @@ function Pagination({ count }: PaginationProps) {
           return (
             <Fragment key={index}>
               <PaginationButton
-                selected={page === selectedItem}
+                selected={page === selectedPage}
                 onClick={() => handleNextOrPrevPage(page)}
               >
                 {page}

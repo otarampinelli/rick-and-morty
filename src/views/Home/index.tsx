@@ -1,21 +1,24 @@
 import BasicPage from "../../components/BasicPage";
-import { useQuery } from "react-query";
-import { getCharacters } from "../../api";
-import CharactersList from "../../components/CharacterList";
 import Pagination from "../../components/Pagination";
+import { useState } from "react";
+import Characters from "./components/Characters";
 
 function HomePage() {
-  const { isLoading, data } = useQuery("allCharactersList", getCharacters);
+  const [selectedPage, setSelectedPage] = useState<number>(1);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handleSelectedPage = (page: number) => {
+    setSelectedPage(page);
+  };
 
   return (
     <BasicPage>
       <>
-        <CharactersList results={data.results} />
-        <Pagination count={42} />
+        <Characters page={selectedPage} />
+        <Pagination
+          count={42}
+          selectedPage={selectedPage}
+          onClick={handleSelectedPage}
+        />
       </>
     </BasicPage>
   );

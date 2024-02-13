@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { CharacterCardProps } from "./types";
 import { Link } from "react-router-dom";
 
-
 function CharacterCard({ character }: CharacterCardProps) {
   return (
     <CardLink to={`character/${character.id}`}>
