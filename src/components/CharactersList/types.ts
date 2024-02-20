@@ -28,4 +28,5 @@ export type CharacterResultType = {
 export interface CharacterListProps {
     info?: ChracterInfoType
     results: CharacterResultType[]
+    handleError?: (error: boolean) => void
 }

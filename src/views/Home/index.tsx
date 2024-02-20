@@ -13,7 +13,7 @@ function HomePage() {
 
   const { data, isLoading } = useQuery(
     ["allCharactersList", selectedPage, searchValue],
-    getCharacters
+    getCharacters,
   );
 
   const handleSelectedPage = (page: number) => {
@@ -23,6 +23,13 @@ function HomePage() {
   const handleSearchValue = (value: string) => {
     setSearchValue(value);
   };
+
+  const handleInitialValues = (error: boolean) => {
+    if (error) {
+      setSelectedPage(1)
+      setSearchValue('')
+    }
+  }
 
   const count = data?.info?.pages;
   const results = data?.results ?? [];
@@ -37,12 +44,12 @@ function HomePage() {
         <CharacterSearch
           value={searchValue}
           onChange={handleSearchValue}
-          placeholder="Buscar personagem"
+          placeholder="Search character"
         />
       }
     >
       <>
-        <CharactersList results={results} />
+        <CharactersList results={results} handleError={handleInitialValues}/>
         {count > 0 && (
           <Pagination
             count={count}
