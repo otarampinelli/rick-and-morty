@@ -3,9 +3,7 @@ import { API_DOCS_URL } from "../../contants";
 import { Link } from "react-router-dom";
 import { MenuProps } from "./type";
 
-function Menu({
-  searchComponent,
-}: MenuProps) {
+function Menu({ searchComponent }: MenuProps) {
   return (
     <MenuDiv>
       <Title to="/">Rick And Morty</Title>
@@ -25,9 +23,12 @@ const MenuDiv = styled.nav`
   display: flex;
   align-items: center;
   background: white;
-  height: 50px;
+  min-height: 50px;
   padding: 10px 20px;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled(Link)`
@@ -40,6 +41,9 @@ const ListWrapper = styled.ul`
   display: flex;
   align-items: center;
   gap: 14px;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const ListItem = styled.li`

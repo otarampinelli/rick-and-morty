@@ -24,8 +24,8 @@ function HomePage() {
     setSearchValue(value);
   };
 
-  const handleInitialValues = (error: boolean) => {
-    if (error) {
+  const handleInitialValues = (setInitialValues: boolean) => {
+    if (setInitialValues) {
       setSelectedPage(1)
       setSearchValue('')
     }

@@ -2,23 +2,26 @@ import styled, { css } from "styled-components";
 import { CharacterCardProps } from "./types";
 
 function CharacterCard({ character }: CharacterCardProps) {
+  console.log(character);
   return (
-      <CharacterDiv status={character.status}>
-        <div>
-          <CharacterImage src={character.image} />
-        </div>
-        <CharacterInfos>
-          <h2>{character.name}</h2>
-          <CharacterParagraph>
-            <CharacterSpan>Status: </CharacterSpan>
-            {character.status}
-          </CharacterParagraph>
-          <CharacterParagraph>
-            <CharacterSpan>Last known location: </CharacterSpan>
-            {character.location.name}
-          </CharacterParagraph>
-        </CharacterInfos>
-      </CharacterDiv>
+    <CharacterDiv status={character.status}>
+      <div>
+        <CharacterName>
+          <span>{character.name}</span>
+        </CharacterName>
+        <CharacterImage src={character.image} />
+      </div>
+      <CharacterInfos>
+        <CharacterParagraph>
+          <CharacterSpan>Status: </CharacterSpan>
+          {character.status}
+        </CharacterParagraph>
+        <CharacterParagraph>
+          <CharacterSpan>Last known location: </CharacterSpan>
+          {character.location.name}
+        </CharacterParagraph>
+      </CharacterInfos>
+    </CharacterDiv>
   );
 }
 
@@ -67,7 +70,8 @@ const CharacterDiv = styled.div<{
   padding: 10px;
   height: 500px;
   border-radius: 18px;
-  text-align: center;
+  gap: 20px;
+  /* justify-content: space-around; */
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -80,19 +84,33 @@ const CharacterDiv = styled.div<{
 
 const CharacterImage = styled.img`
   width: 100%;
-  border-top-right-radius: 18px;
-  border-top-left-radius: 18px;
+`;
+
+const CharacterName = styled.div`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 18px;
+  padding: 0 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 `;
 
 const CharacterInfos = styled.div`
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
-  height: 100%;
+  height: 125px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 `;
 
 const CharacterSpan = styled.span`
