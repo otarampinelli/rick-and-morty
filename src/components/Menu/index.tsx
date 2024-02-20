@@ -1,6 +1,25 @@
 import styled from "styled-components";
 import { API_DOCS_URL } from "../../contants";
 import { Link } from "react-router-dom";
+import { MenuProps } from "./type";
+
+function Menu({
+  searchComponent,
+}: MenuProps) {
+  return (
+    <MenuDiv>
+      <Title to="/">Rick And Morty</Title>
+      <ListWrapper>
+        {searchComponent && <ListItem>{searchComponent}</ListItem>}
+        <ListItem>
+          <MenuItemLink href={API_DOCS_URL}>Docs</MenuItemLink>
+        </ListItem>
+      </ListWrapper>
+    </MenuDiv>
+  );
+}
+
+export default Menu;
 
 const MenuDiv = styled.nav`
   display: flex;
@@ -17,6 +36,12 @@ const Title = styled(Link)`
   text-decoration: none;
 `;
 
+const ListWrapper = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 14px;
+`;
+
 const ListItem = styled.li`
   list-style-type: none;
   font-size: 20px;
@@ -31,18 +56,3 @@ const MenuItemLink = styled.a`
     color: #f5e718;
   }
 `;
-
-function Menu() {
-  return (
-    <MenuDiv>
-      <Title to="/">Rick And Morty</Title>
-      <ul>
-        <ListItem>
-          <MenuItemLink href={API_DOCS_URL}>Docs</MenuItemLink>
-        </ListItem>
-      </ul>
-    </MenuDiv>
-  );
-}
-
-export default Menu;

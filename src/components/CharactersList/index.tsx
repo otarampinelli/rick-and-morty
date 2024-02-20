@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CharacterCard from "../CharacterCard";
 import { CharacterListProps } from "./types";
 
-function CharacterList({ results }: CharacterListProps) {
+function CharactersList({ results }: CharacterListProps) {
   return (
     <CharacterListContainer>
       {!!results.length &&
@@ -18,7 +18,7 @@ function CharacterList({ results }: CharacterListProps) {
   );
 }
 
-export default CharacterList;
+export default CharactersList;
 
 const CharacterListContainer = styled.div`
   display: flex;

@@ -93,6 +93,7 @@ const PaginationButton = styled.button<{
   font-weight: bold;
   font-size: 14px;
   text-align: center;
+  cursor: pointer;
   ${(props) => {
     if (props.selected) {
       return css`

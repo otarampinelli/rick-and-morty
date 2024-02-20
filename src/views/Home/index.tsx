@@ -3,14 +3,15 @@ import BasicPage from "../../components/BasicPage";
 import Pagination from "../../components/Pagination";
 import { useState } from "react";
 import { getCharacters } from "../../api";
-import CharacterList from "../../components/CharacterList";
-import SearchInput from "../../components/SearchInput";
+import CharactersList from "../../components/CharactersList/index.tsx";
+import Spinner from "../../components/Spinner";
+import CharacterSearch from "../../components/CharacterSearch/index.tsx";
 
 function HomePage() {
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["allCharactersList", selectedPage, searchValue],
     getCharacters
   );
@@ -23,21 +24,31 @@ function HomePage() {
     setSearchValue(value);
   };
 
-  const count = data?.info?.pages
+  const count = data?.info?.pages;
+  const results = data?.results ?? [];
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
-    <BasicPage>
+    <BasicPage
+      searchComponent={
+        <CharacterSearch
+          value={searchValue}
+          onChange={handleSearchValue}
+          placeholder="Buscar personagem"
+        />
+      }
+    >
       <>
-        <>
-          <SearchInput value={searchValue} onChange={handleSearchValue} />
-          <CharacterList results={data?.results || []} />
-        </>
+        <CharactersList results={results} />
         {count > 0 && (
           <Pagination
-          count={count}
-          selectedPage={selectedPage}
-          onClick={handleSelectedPage}
-        />
+            count={count}
+            selectedPage={selectedPage}
+            onClick={handleSelectedPage}
+          />
         )}
       </>
     </BasicPage>

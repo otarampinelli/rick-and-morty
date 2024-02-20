@@ -1,10 +1,8 @@
 import styled, { css } from "styled-components";
 import { CharacterCardProps } from "./types";
-import { Link } from "react-router-dom";
 
 function CharacterCard({ character }: CharacterCardProps) {
   return (
-    <CardLink to={`character/${character.id}`}>
       <CharacterDiv status={character.status}>
         <div>
           <CharacterImage src={character.image} />
@@ -21,7 +19,6 @@ function CharacterCard({ character }: CharacterCardProps) {
           </CharacterParagraph>
         </CharacterInfos>
       </CharacterDiv>
-    </CardLink>
   );
 }
 
@@ -94,10 +91,6 @@ const CharacterInfos = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-`;
-
-const CardLink = styled(Link)`
   text-decoration: none;
 `;
 

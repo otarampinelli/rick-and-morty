@@ -3,12 +3,10 @@ import Menu from "../Menu";
 import Footer from "../Footer";
 import { BasicPageProps } from "./types";
 
-
-
-function BasicPage({ children }: BasicPageProps) {
+function BasicPage({ children, searchComponent = null}: BasicPageProps) {
   return (
     <Container>
-      <Menu />
+      <Menu searchComponent={searchComponent}/>
       <ChildrenContainer>{children}</ChildrenContainer>
       <Footer />
     </Container>
@@ -27,4 +25,3 @@ const Container = styled.div`
 const ChildrenContainer = styled.div`
   flex: 1;
 `;
-

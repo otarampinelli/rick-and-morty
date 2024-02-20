@@ -1,4 +1,5 @@
 import { API_URL } from "../contants";
+import { throwError } from "../utils";
 
 export async function getCharacters({
   queryKey,
@@ -9,10 +10,8 @@ export async function getCharacters({
   const searchByName = queryKey[2] || "";
   const response = await fetch(`${API_URL}?page=${page}&name=${searchByName}`);
 
-  console.log(response)
-
   if (!response.ok) {
-    throw new Error("something is wrong here!!!");
+    throwError()
   }
 
   return response.json();
@@ -28,8 +27,9 @@ export async function getCharacterById({
   const response = await fetch(`${API_URL}/${id}`);
 
   if (!response.ok) {
-    throw new Error("something is wrong here!!!");
+    throwError()
   }
 
   return response.json();
 }
+

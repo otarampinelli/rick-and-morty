@@ -1,4 +1,4 @@
-import { CharacterResultType } from "../CharacterList/types";
+import { CharacterResultType } from "../CharactersList/types";
 
 export interface CharacterCardProps {
     character: CharacterResultType
